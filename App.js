@@ -1,12 +1,21 @@
-import React, {useRef, useState} from 'react';
-import {View, Image, Dimensions, StyleSheet, Text, Button} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  View,
+  Image,
+  Dimensions,
+  StyleSheet,
+  Text,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import RNImageEditor from '@wwimmo/react-native-sketch-canvas';
+import Slider from '@react-native-community/slider';
 
 const flight = require('./flight.jpg');
 
 const App = () => {
-  const [strokeW, setStrokeW] = useState(20);
   const ref = useRef();
+  const tapRef = useRef();
   return (
     <View style={styles.container}>
       <Image
@@ -32,22 +41,21 @@ const App = () => {
             />
           );
         }}
-        strokeWidthComponent={w => {
+        defaultStrokeWidth={1}
+        strokeWidthComponent={next => {
           return (
-            <View style={styles.strokeWidthButton}>
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  marginHorizontal: 2.5,
-                  width: Math.sqrt(w / 3) * 5,
-                  height: Math.sqrt(w / 3) * 5,
-                  borderRadius: (Math.sqrt(w / 3) * 10) / 2,
-                }}
+            <View style={{marginTop: 50}}>
+              <Slider
+                style={{width: 200, height: 40}}
+                minimumValue={1}
+                maximumValue={10}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+                onValueChange={v => next(v)}
               />
             </View>
           );
         }}
-        strokeWidthStep={0.5}
       />
       <View style={{position: 'absolute', bottom: 100}}>
         <Button
@@ -55,7 +63,9 @@ const App = () => {
           onPress={() => {
             if (ref.current) {
               ref.current.undo();
-              setStrokeW(5);
+            }
+            if (tapRef.current) {
+              tapRef.current.press;
             }
           }}
         />

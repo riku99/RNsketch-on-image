@@ -10,7 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@wwimmo/react-native-sketch-canvas": "https://github.com/wwimmo/react-native-sketch-canvas.git",
+    "@react-native-community/slider": "^3.0.3",
+    "@wwimmo/react-native-sketch-canvas": "git+https://github.com/riku99/react-native-sketch-image.git",
     "react": "17.0.1",
     "react-native": "0.64.0"
   },
