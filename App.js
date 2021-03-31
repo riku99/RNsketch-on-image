@@ -64,6 +64,8 @@ const App = () => {
           minimumValue={1}
           maximumValue={20}
           step={0.3}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
           onValueChange={v => ref.current._nextStrokeWidth(v)}
         />
       </View>
