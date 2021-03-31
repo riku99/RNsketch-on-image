@@ -1,13 +1,5 @@
 import React, {useRef} from 'react';
-import {
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  Text,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Image, Dimensions, StyleSheet, Button} from 'react-native';
 import RNImageEditor from '@wwimmo/react-native-sketch-canvas';
 import Slider from '@react-native-community/slider';
 
@@ -26,7 +18,10 @@ const App = () => {
       <RNImageEditor
         ref={ref}
         containerStyle={styles.canvas}
-        canvasStyle={{backgroundColor: 'transparent', flex: 1}}
+        canvasStyle={{
+          backgroundColor: 'transparent',
+          flex: 1,
+        }}
         defaultStrokeIndex={0}
         strokeComponent={color => (
           <View style={[{backgroundColor: color}, styles.strokeColorButton]} />
@@ -41,21 +36,7 @@ const App = () => {
             />
           );
         }}
-        defaultStrokeWidth={1}
-        strokeWidthComponent={next => {
-          return (
-            <View style={{marginTop: 50}}>
-              <Slider
-                style={{width: 200, height: 40}}
-                minimumValue={1}
-                maximumValue={10}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#000000"
-                onValueChange={v => next(v)}
-              />
-            </View>
-          );
-        }}
+        defaultStrokeWidth={5}
       />
       <View style={{position: 'absolute', bottom: 100}}>
         <Button
@@ -70,6 +51,22 @@ const App = () => {
           }}
         />
       </View>
+      <View
+        style={{
+          transform: [{rotate: '-90deg'}],
+          position: 'absolute',
+          top: '45%',
+          left: -70,
+        }}>
+        <Slider
+          style={{width: 200, height: 20}}
+          value={5}
+          minimumValue={1}
+          maximumValue={20}
+          step={0.3}
+          onValueChange={v => ref.current._nextStrokeWidth(v)}
+        />
+      </View>
     </View>
   );
 };
@@ -81,7 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   canvas: {
     position: 'absolute',
@@ -99,7 +95,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 5,
     backgroundColor: 'red',
-    zIndex: 100,
   },
   strokeColorButton: {
     marginHorizontal: 5,
